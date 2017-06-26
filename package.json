@@ -7,7 +7,7 @@
     "prestart": "npm install",
     "postinstall": "",
     "start": "http-server -p 8000 -c-1 -o ",
-    "test": "./node_modules/.bin/karma start --single-run --browsers ChromeNoSandbox"
+    "test": "./node_modules/.bin/karma start --single-run"
   },
   "repository": {
     "type": "git",
