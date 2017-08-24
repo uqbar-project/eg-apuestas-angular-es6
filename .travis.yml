@@ -14,3 +14,4 @@ before_script:
   - npm install -g karma karma-cli karma-jasmine
 
 script: node_modules/karma/bin/karma start ./karma.conf.js --single-run --browsers ChromeNoSandbox
+
