@@ -18,6 +18,9 @@ class Apuesta {
         }
         if (this.tipoApuesta === null) {
             throw "Debe ingresar tipo de apuesta"
+		}
+		if (this.valorApostado === null) {
+            throw "Debe ingresar valor a apostar"
         }
         this.tipoApuesta.validar(this)
     }
@@ -40,10 +43,7 @@ class Pleno {
 	constructor() {
 		this.ganancia = 35
 		this.descripcion = 'Pleno'
-		this.valoresAApostar = 
-			Array
-				.from(Array(36).keys())
-				.map((numero) => numero + 1)
+		this.valoresAApostar = Array.from(new Array(36), (value ,index) => index + 1)
 	}
 
     validar(apuesta) {

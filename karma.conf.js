@@ -1,5 +1,5 @@
 // Karma configuration
-// Generated on Fri Jun 23 2017 17:56:23 GMT-0300 (ART)
+// Generated on Thu Aug 31 2017 12:44:54 GMT-0300 (ART)
 
 module.exports = function(config) {
   config.set({
@@ -15,15 +15,14 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      './node_modules/angular/angular.js',
-      './node_modules/angular-ui-router/release/angular-ui-router.js',
-      './node_modules/angular-mocks/angular-mocks.js',      
-      './node_modules/angular-ui-bootstrap/ui-bootstrap-tpls.js',
-      './js/domain/resultado.js',
-      './js/domain/apuesta.js',
-      './js/controllers/apuesta.js',
-      './js/app.js',
-      './tests/*.js'
+      'node_modules/angular/angular.js',
+      'node_modules/angular-mocks/angular-mocks.js',
+      'node_modules/angular-ui-bootstrap/ui-bootstrap-tpls.js',
+      'node_modules/babel-polyfill/dist/polyfill.js', // Necesario para que reconozca Array.from
+      'src/domain/**.js',
+      'src/controllers/**.js',
+      'src/**.js',
+      'spec/**.js'
     ],
 
 
@@ -35,8 +34,23 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      'src/**/*.js': ['babel'],
+      'spec/**/*.js': ['babel']
     },
 
+    // Babel preprocessor specific configuration
+    babelPreprocessor: {
+      options: {
+        presets: ['es2015'], // use the es2015 preset
+        sourceMap: 'inline' // inline source maps inside compiled files
+      },
+      filename: function (file) {
+        return file.originalPath.replace(/\.js$/, '.es5.js');
+      },
+      sourceFileName: function (file) {
+        return file.originalPath;
+      }
+    },
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
@@ -60,18 +74,11 @@ module.exports = function(config) {
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: true,
 
+
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: [
-      'ChromeNoSandbox'
-    ],
+    browsers: ['PhantomJS'],
 
-    customLaunchers: {
-      ChromeNoSandbox: {
-        base: 'Chrome',
-        flags: ['--no-sandbox']
-      }
-    },
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
